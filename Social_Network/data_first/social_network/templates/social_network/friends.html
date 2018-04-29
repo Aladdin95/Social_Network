@@ -1,0 +1,5 @@
+<ul>
+    {% for friend in friends%}
+    <li><a href="/home/{{ friend.pk }}/">{{friend}}</a></li>
+    {% endfor %}
+</ul>

@@ -5,17 +5,15 @@ from .models import User
 
 def index(request):
     all_users = User.objects.all()
-    html = ''
-    for user in all_users:
-        url = '/home/'+str(user.pk)+'/'
-        html += '<a href="' + url + '">' + user.First_name+" " + user.Last_name + '</a><br>'
-    return HttpResponse(html)
+    context = {'all_users': all_users}
+    return render(request, 'social_network/index.html', context)
 
 
 def detail(request, user_id):
     user = User.objects.filter(pk=user_id)[0]
     friends = user.friends.all()
-    return HttpResponse(friends)
+    context = {'friends': friends}
+    return render(request, 'social_network/friends.html', context)
 
     #for friend in friends:
     #    html += " " + friend + " "
