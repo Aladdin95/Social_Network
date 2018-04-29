@@ -2,7 +2,9 @@ from django.conf.urls import url
 from . import views
 
 urlpatterns = [
-    #/home/
-    url(r'^(?P<user_id>[0-9]+)/$', views.detail, name='detail'),
-    url(r'^$', views.index, name='index'),
+    #/users/
+    url(r'^users/(?P<user_id>[0-9]+)/$', views.detail, name='detail'),
+    url(r'^users', views.index, name='index'),
+    url(r'^login', views.login, name='index'),
+    url(r'^$', views.home, name='home'),
 ]
