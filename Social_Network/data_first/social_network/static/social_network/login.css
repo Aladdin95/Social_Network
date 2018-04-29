@@ -1,0 +1,75 @@
+ *{
+box-sizing: border-box;
+padding: 0;
+margin: 0
+}
+
+.box{
+position: absolute;
+z-index:999;
+top: 0;
+left: 0;
+right: 0;
+background-color: transparent;
+border: 0 !important;
+text-align: center;
+color: #fff;
+padding-top: 20px;
+width: 400px;
+height: 450px;
+background-color: rgba(67,61,61,.2);
+margin: 50px auto;
+}
+.box img{
+border-radius: 50%;
+width: 100px;
+height: 100px;
+position: absolute;
+top: -30px;
+left: 150px;
+}
+.box h1{
+padding-top: 70px;
+text-transform: capitalize;
+font-weight: bold;
+
+}
+
+.box input{
+display: block;
+margin-top: 20px;
+margin-left: 30px;
+padding: 5px;
+width: 300px;
+border-radius: 7px;
+text-transform: capitalize;
+font-size: 15px;
+background-color: rgba(255,255,255,.9);
+font-family: Arial,Tahoma;
+
+}
+
+.create
+{
+    margin-top: 10px;
+width: 200px;
+height: 40px;
+border-radius: 20px;
+background-color:rgba(57,87,34,.5) ;
+border: 2px solid #ccc ;
+color: #fff;
+text-transform: capitalize;
+font-size: 15px
+}
+
+.login{
+margin-top: 40px;
+width: 200px;
+height: 40px;
+border-radius: 20px;
+background-color:rgba(57,87,34,.5) ;
+border: 2px solid #ccc ;
+color: #fff;
+text-transform: capitalize;
+font-size: 20px
+}
