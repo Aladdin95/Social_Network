@@ -54,4 +54,3 @@ class UserFormView(View):
                 return redirect('home')
 
         return render(request,self.template_name,{'form':form})
-
