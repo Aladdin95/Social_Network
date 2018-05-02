@@ -33,7 +33,7 @@ def home(request):
 class UserFormView(View):
     form_class= UserForm
     template_name='social_network/register.html'
-
+    error='social_network/error.html'
     def get(self, request):
         form = self.form_class(None)
         return render(request,self.template_name,{'form':form})
@@ -53,4 +53,4 @@ class UserFormView(View):
                 #login(request,user)
                 return redirect('home')
 
-        return render(request,self.template_name,{'form':form})
+        return render(request,self.error,{'form':form})

@@ -14,13 +14,16 @@ class UserForm(forms.ModelForm):
         # Get the email
         email = self.cleaned_data.get('email')
 
-        # Check to see if any users already exist with this email as a username.
+        # Check to see if any users already exist with this email
         try:
             match = User.objects.get(email=email)
         except User.DoesNotExist:
             # Unable to find a user, this is fine
             return email
 
-        # A user was found with this as a username, raise an error.
-        raise forms.ValidationError('This email address is already in use.')
+        # A user was found with this email, raise an error.
+        raise forms.ValidationError("This email address is already in use.")
+
+
+
     # 'birth_date','gender','mobile_number'
