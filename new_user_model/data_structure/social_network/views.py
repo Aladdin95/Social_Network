@@ -30,14 +30,19 @@ def home(request):
 
 class UserFormView(View):
     form_class = CustomUserCreationForm
-    template_name = 'social_network/register.html'
+    template_name = 'social_network/Registration.html'
     error = 'social_network/error.html'
 
     def get(self, request):
         form = self.form_class(None)
         return render(request, self.template_name, {'form': form})
 
+
+
     def post(self, request):
+
+
+
         form = self.form_class(request.POST)
 
         if form.is_valid():

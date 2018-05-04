@@ -69,17 +69,9 @@
       <!-- <li><a href="#"><span class="glyphicon glyphicon-align-justify"></span></a></li> -->
 
     </ul>
-
-
       <ul class="nav navbar-nav navbar-right">
-          {% if user.is_authenticated %}
-          <li><a href="#">{{ user.username }}</a></li>
-          <li><a href="/logout/"> logout </a></li>
-
-          {% else %}
-          <li><a href="#">You are not logged in</a></li>
-          <li><a href="/login/"> login </a></li>
-          {% endif %}
+           <li><a href="#">Rawan Mahmoud</a></li>
+        <li><a href="#">Log Out</a></li>
 
 
       <form class="navbar-form navbar-right">
@@ -174,9 +166,3 @@
 
 </body>
 </html>
-
-
-
-
-
-
