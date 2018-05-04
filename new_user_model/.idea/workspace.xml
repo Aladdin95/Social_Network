@@ -14,8 +14,8 @@
       <file leaf-file-name="login.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/data_structure/social_network/templates/registration/login.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="27">
-              <caret line="325" column="16" selection-start-line="325" selection-start-column="16" selection-end-line="325" selection-end-column="16" />
+            <state relative-caret-position="351">
+              <caret line="352" column="65" lean-forward="true" selection-start-line="352" selection-start-column="20" selection-end-line="352" selection-end-column="65" />
             </state>
           </provider>
         </entry>
@@ -44,11 +44,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="myhome.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="myhome.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/data_structure/social_network/templates/social_network/myhome.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="130">
-              <caret line="71" lean-forward="true" selection-start-line="71" selection-end-line="71" />
+            <state relative-caret-position="-32">
+              <caret line="80" column="34" selection-start-line="80" selection-start-column="34" selection-end-line="80" selection-end-column="34" />
             </state>
           </provider>
         </entry>
@@ -100,11 +100,11 @@
           <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
-      <file leaf-file-name="Registration.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Registration.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/data_structure/social_network/templates/social_network/Registration.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-648">
-              <caret line="359" lean-forward="true" selection-start-line="359" selection-end-line="359" />
+            <state relative-caret-position="243">
+              <caret line="343" column="57" selection-start-line="343" selection-start-column="57" selection-end-line="343" selection-end-column="57" />
             </state>
           </provider>
         </entry>
@@ -118,6 +118,11 @@
         <option value="HTML File" />
       </list>
     </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>regi</find>
+    </findStrings>
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -134,15 +139,15 @@
         <option value="$PROJECT_DIR$/data_structure/social_network/registration/login.html" />
         <option value="$PROJECT_DIR$/data_structure/social_network/templates/social_network/error.html" />
         <option value="$PROJECT_DIR$/data_structure/social_network/templates/social_network/register.html" />
-        <option value="$PROJECT_DIR$/data_structure/social_network/templates/registration/login.html" />
         <option value="$PROJECT_DIR$/data_structure/social_network/views.py" />
         <option value="$PROJECT_DIR$/data_structure/social_network/urls.py" />
-        <option value="$PROJECT_DIR$/data_structure/social_network/templates/social_network/Registration.html" />
+        <option value="$PROJECT_DIR$/data_structure/social_network/templates/registration/login.html" />
         <option value="$PROJECT_DIR$/data_structure/social_network/templates/social_network/myhome.html" />
+        <option value="$PROJECT_DIR$/data_structure/social_network/templates/social_network/Registration.html" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-10" />
     <option name="y" value="-10" />
     <option name="width" value="1750" />
@@ -393,13 +398,6 @@
     <entry file="file://$PROJECT_DIR$/data_structure/social_network/__init__.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/data_structure/social_network/templates/registration/login.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="27">
-          <caret line="325" column="16" selection-start-line="325" selection-start-column="16" selection-end-line="325" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/data_structure/social_network/views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="108">
@@ -427,13 +425,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/data_structure/social_network/templates/social_network/Registration.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-648">
-          <caret line="359" lean-forward="true" selection-start-line="359" selection-end-line="359" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/data_structure/social_network/templates/social_network/home.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="54">
@@ -453,8 +444,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/data_structure/social_network/templates/social_network/myhome.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="130">
-          <caret line="71" lean-forward="true" selection-start-line="71" selection-end-line="71" />
+        <state relative-caret-position="-32">
+          <caret line="80" column="34" selection-start-line="80" selection-start-column="34" selection-end-line="80" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data_structure/social_network/templates/registration/login.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="351">
+          <caret line="352" column="65" lean-forward="true" selection-start-line="352" selection-start-column="20" selection-end-line="352" selection-end-column="65" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data_structure/social_network/templates/social_network/Registration.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="243">
+          <caret line="343" column="57" selection-start-line="343" selection-start-column="57" selection-end-line="343" selection-end-column="57" />
         </state>
       </provider>
     </entry>
