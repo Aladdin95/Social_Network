@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login as auth_login
 from django.views import generic
 from django.views.generic import View
 from django.http import HttpResponse
@@ -41,15 +41,12 @@ class UserFormView(View):
         form = self.form_class(request.POST)
 
         if form.is_valid():
-            user = form.save(commit=False)
+            form.save()
             username = form.cleaned_data['username']
             password = form.cleaned_data['password1']
-            user.set_password(password)
-            user.save()
-            user = authenticate(username=username, password=password)
+            new_user = authenticate(username=username, password=password)
+            if new_user is not None:
+                if new_user.is_active:
+                    auth_login(request, new_user)
             return redirect('home')
-            if user is not None:
-                # if user.active:
-                # login(user)
-                return redirect('home')
         return render(request, self.error, {'form': form})
