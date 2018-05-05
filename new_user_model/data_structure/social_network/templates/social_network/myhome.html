@@ -62,9 +62,9 @@
       <a class="navbar-brand"><i class="fa fa-trademark" style="padding-right:20px;padding-left:20px;" ></i></a>
     </div> -->
     <ul class="nav navbar-nav">
-      <li ><a href="#">Home</a></li>
-      <li><a href="#">Profile</a></li>
-      <li><a href="#">Friends</a></li>
+      <li ><a href="/">Home</a></li>
+      <li><a href="/{{user.username}}/">Profile</a></li>
+      <li><a href="/{{user.username}}/friends/">Friends</a></li>
       <!-- <li><a href="#">Shop</a></li> -->
       <!-- <li><a href="#"><span class="glyphicon glyphicon-align-justify"></span></a></li> -->
 
@@ -73,7 +73,7 @@
 
       <ul class="nav navbar-nav navbar-right">
           {% if user.is_authenticated %}
-          <li><a href="#">{{ user.username }}</a></li>
+          <li><a href="/{{user.username}}/">{{user}}</a></li>
           <li><a href="/logout/"> logout </a></li>
 
           {% else %}
@@ -102,32 +102,44 @@
   <div class="row">
     <div class="card">
       <div class="form-group">
-  <label for="comment">Post:</label>
-  <textarea class="form-control" rows="5" id="comment"></textarea>
-  <button type="button" class="btn">Post</button>
+    {% if user.is_authenticated %}
+
+<form method="post" action="{% url 'add_post' user.username %}">
+                   {% csrf_token %}
+
+              <label for="comment">Post:</label>
+              <textarea class="form-control" rows="5" id="comment" name="postbody"></textarea>
+              <button type="submit" class="btn">Post</button>
+          </form>
 </div>
 </div>
 </div>
 <br>
 <br>
-<div class="row">
+{%for post in posts%}
+    <div class="row">
   <div class="card">
 <div class="card-body">
-  <h4 class="card-title">Rawan Mahmoud</h4>
-  <p class="card-text">Some example text. Some example text.</p>
-  <p> 12 Likes</p>
+  <h4 class="card-title">{{post.user}}</h4>
+  <p class="card-text">{{post.postbody}}</p>
+    <p class="card-text">{{post.updated}}</p>
+
+  <p> 9 Likes</p>
   <a href="#" class="card-link">Like</a>
   <a href="#" class="card-link">Comment</a>
+    <br> <br> <br>
 </div>
 </div>
 </div>
+    {%endfor%}
+    {%endif%}
 <br>
 <br>
 <div class="row">
   <div class="card">
 <div class="card-body">
-  <h4 class="card-title">Rawan Mahmoud</h4>
-  <p class="card-text">Some example text. Some example text.</p>
+  <h4 class="card-title">HELLO</h4>
+  <p class="card-text">its free and always will be</p>
   <p> 12 Likes</p>
   <a href="#" class="card-link">Like</a>
   <a href="#" class="card-link">Comment</a>

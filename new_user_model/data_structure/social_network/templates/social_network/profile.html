@@ -70,16 +70,16 @@
       <a class="navbar-brand"><i class="fa fa-trademark" style="padding-right:20px;padding-left:20px;" ></i></a>
     </div> -->
     <ul class="nav navbar-nav">
-      <li ><a href="#">Home</a></li>
-      <li><a href="#">Profile</a></li>
-      <li><a href="#">Friends</a></li>
+      <li ><a href="/"> Home</a></li>
+      <li><a href="/{{user.username}}">Profile</a></li>
+      <li><a href="/{{user.username}}/friends/">Friends</a></li>
       <!-- <li><a href="#">Shop</a></li> -->
       <!-- <li><a href="#"><span class="glyphicon glyphicon-align-justify"></span></a></li> -->
 
     </ul>
       <ul class="nav navbar-nav navbar-right">
-           <li><a href="#">Rawan Mahmoud</a></li>
-        <li><a href="#">Log Out</a></li>
+           <li><a href="/{{user.username}}">{{user}}</a></li>
+        <li><a href="/logout/">Log Out</a></li>
 
 
       <form class="navbar-form navbar-right">
@@ -100,23 +100,16 @@
 
 <div class="container">
     <div class="card">
-      <h2 class="card-title"><b>Rawan Mahmoud</b></h4>
+      <h2 class="card-title"><b>{{user}}</b></h4>
         <br>
         <ul>
-      <li class="card-text" id='big_font'><b>E-mail: </b><span id='small_font'>rawan.gamaleldin@gmail.com</span></li>
-<li class="card-text" id='big_font'><b>Mobile Number: </b><span id='small_font'>01221178311</span></li>
-<li class="card-text" id='big_font'><b>Birth-Date: </b><span id='small_font'>16/5/1996</span></li>
-</ul>
-<div class="card">
-<p class="card-title" id='big_font'><b>Friends: </b><span id='small_font'>100</span></p>
+         <li class="card-text" id='big_font'><b>E-mail: </b><span id='small_font'>{{user.email}}</span></li>
+         <li class="card-text" id='big_font'><b>Mobile Number: </b><span id='small_font'>{{user.mobile_number}}</span></li>
+            <li class="card-text" id='big_font'><b>Birth-Date: </b><span id='small_font'>{{user.birth_date}}</span></li>
 
-<ul class="card-text">
-  <li>Doaa Kamel</li>
-  <li>Doaa Kamel</li>
-  <li>Doaa Kamel</li>
-  <li>Doaa Kamel</li>
+
 </ul>
-</div>
+
 </div>
 
 <div class="container-fluid" id="footer">
