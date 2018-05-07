@@ -22,4 +22,4 @@ class Mypost(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-
+    likes = models.ManyToManyField(CustomUser,related_name="my_likes")

@@ -124,8 +124,16 @@
   <p class="card-text">{{post.postbody}}</p>
     <p class="card-text">{{post.updated}}</p>
 
-  <p> 9 Likes</p>
+  <p> post.Likes.objects.count()</p>
+
+    <form method="post" action="{% url 'add_like' post.pk %}" class="form-inline">
+     {% csrf_token %}
+  <div class="form-group mx-sm-3 mb-2">
   <a href="#" class="card-link">Like</a>
+
+  </div>
+</form>
+
   <a href="#" class="card-link">Comment</a>
     <br> <br> <br>
 </div>
