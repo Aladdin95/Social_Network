@@ -104,13 +104,13 @@
       <div class="form-group">
     {% if user.is_authenticated %}
 
-<form method="post" action="{% url 'add_post' user.username %}">
+<form method="post" action="">
                    {% csrf_token %}
 
-              <label for="comment">Post:</label>
-              <textarea class="form-control" rows="5" id="comment" name="postbody"></textarea>
-              <button type="submit" class="btn">Post</button>
-          </form>
+  <label for="comment">Post:</label>
+  <textarea class="form-control" rows="5" id="comment" name="postbody"></textarea>
+  <button type="submit" class="btn">Post</button>
+</form>
 </div>
 </div>
 </div>
@@ -124,17 +124,17 @@
   <p class="card-text">{{post.postbody}}</p>
     <p class="card-text">{{post.updated}}</p>
 
-  <p> post.Likes.objects.count()</p>
+    <div class="form-group mx-sm-3 mb-2">
 
-    <form method="post" action="{% url 'add_like' post.pk %}" class="form-inline">
-     {% csrf_token %}
-  <div class="form-group mx-sm-3 mb-2">
-  <a href="#" class="card-link">Like</a>
-
-  </div>
-</form>
+    <form method="post" action="">
+        {% csrf_token %}
+        <input type="hidden" name="like" value="">
+        <input type="hidden" name="post_id" value="{{ post.pk }}">
+        <button type="submit" class="btn">Like</button>
+    </form>
 
   <a href="#" class="card-link">Comment</a>
+  </div>
     <br> <br> <br>
 </div>
 </div>
@@ -148,7 +148,6 @@
 <div class="card-body">
   <h4 class="card-title">HELLO</h4>
   <p class="card-text">its free and always will be</p>
-  <p> 12 Likes</p>
   <a href="#" class="card-link">Like</a>
   <a href="#" class="card-link">Comment</a>
 </div>
@@ -191,12 +190,6 @@
 
 
 </div> -->
-
+</div>
 </body>
 </html>
-
-
-
-
-
-

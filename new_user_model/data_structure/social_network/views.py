@@ -1,8 +1,8 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, reverse
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.views import generic
 from django.views.generic import View
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from .models import CustomUser, Mypost
 from .forms import CustomUserCreationForm
 from itertools import chain
@@ -20,7 +20,7 @@ def detail(request, username):
     return render(request, 'social_network/friends.html', {'friends': friends})
 
 
-def add_friend (request, username):
+def add_friend(request, username):
     user = CustomUser.objects.get(username=username)
     new_friend = CustomUser.objects.get(username=request.POST['Friend'])
     user.friends.add(new_friend)
@@ -28,35 +28,37 @@ def add_friend (request, username):
     return render(request, 'social_network/friends.html', {'friends': user.friends.all()})
 
 
-def add_post (request, username):
-    #user = CustomUser.objects.get(username=username)
-    new_post = Mypost()
-    new_post.postbody = request.POST['postbody']
-    new_post.user = request.user
-    new_post.save()
-    return redirect('home')
-
-
 def profile(request, username):
     user = CustomUser.objects.get(username=username)
     return render(request, 'social_network/profile.html', {'user': user})
 
 
-def login(request):
-    return render(request, 'social_network/home.html', {})
+class Home(View):
+    template = 'social_network/myhome.html'
 
+    def get(self, request):
+        if request.user.is_authenticated:
+            posts = request.user.mypost_set.all()
+            posts_list = list(chain(posts))
+            for user in request.user.friends.all():
+                posts_list += list(chain(user.mypost_set.all()))
+            posts_list = sorted(posts_list, key=lambda instance: instance.updated, reverse=True)
+            return render(request, self.template, {'posts': posts_list})
+        return render(request, self.template, {})
 
-def home(request):
-    if request.user.is_authenticated:
-        posts = request.user.mypost_set.all()
-        posts_list=list(chain(posts))
-        for user in request.user.friends.all():
-            posts_list += list(chain(user.mypost_set.all()))
+    def post(self, request):
+        if 'postbody' in request.POST:
+            new_post = Mypost()
+            new_post.postbody = request.POST['postbody']
+            new_post.user = request.user
+            new_post.save()
+            return redirect(request.path_info)
 
-        posts_list = sorted(posts_list,key=lambda instance: instance.updated, reverse=True)
-        return render(request, 'social_network/myhome.html', {'posts': posts_list})
-
-    return render(request, 'social_network/myhome.html', {})
+        elif 'like' in request.POST:
+            post = Mypost.objects.get(pk=request.POST['post_id'])
+            post.likes.add(request.user)
+            post.save()
+            return redirect('/')
 
 
 class UserFormView(View):
@@ -67,8 +69,6 @@ class UserFormView(View):
     def get(self, request):
         form = self.form_class(None)
         return render(request, self.template_name, {'form': form})
-
-
 
     def post(self, request):
 
