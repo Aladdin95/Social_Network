@@ -41,11 +41,10 @@ class Home(View):
     def get(self, request):
         if request.user.is_authenticated:
             posts = request.user.mypost_set.all()
-            posts_list = list(chain(posts))
             for user in request.user.friends.all():
-                posts_list += list(chain(user.mypost_set.all()))
-            posts_list = sorted(posts_list, key=lambda instance: instance.updated, reverse=True)
-            return render(request, self.template, {'posts': posts_list})
+                posts |= user.mypost_set.all()
+            posts = sorted(posts, key=lambda instance: instance.updated, reverse=True)
+            return render(request, self.template, {'posts': posts})
         return render(request, self.template, {})
 
     def post(self, request):
