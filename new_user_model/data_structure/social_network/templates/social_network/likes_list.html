@@ -1,6 +1,6 @@
 <ul>
-    <h2>search results</h2>
-    {% for user in search_list %}
+    <h2>users who likes this post</h2>
+    {% for user in users %}
     <li><a href="{% url 'profile' user.username %}">{{user}}</a></li>
     {% endfor %}
 </ul>
