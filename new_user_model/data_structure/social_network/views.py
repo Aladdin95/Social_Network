@@ -43,7 +43,7 @@ class Home(View):
             posts = request.user.mypost_set.all()
             for user in request.user.friends.all():
                 posts |= user.mypost_set.all()
-            posts = sorted(posts, key=lambda instance: instance.updated, reverse=True)
+            posts = sorted(posts, key=lambda instance: instance.created, reverse=True)
             return render(request, self.template, {'posts': posts})
         return render(request, self.template, {})
 
