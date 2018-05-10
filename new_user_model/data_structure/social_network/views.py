@@ -6,6 +6,8 @@ from django.http import HttpResponse, HttpResponseRedirect
 from .models import CustomUser, Mypost
 from .forms import CustomUserCreationForm
 from itertools import chain
+from django.db.models import CharField
+from django.db.models import  Q
 
 
 def index(request):
@@ -59,6 +61,16 @@ class Home(View):
             post.likes.add(request.user)
             post.save()
             return redirect('/')
+
+        elif 'search' in request.POST:
+            word = request.POST['search']
+            search_list = CustomUser.objects.filter(first_name__icontains=word)
+            search_list |= CustomUser.objects.filter(last_name__icontains=word)
+            search_list |= CustomUser.objects.filter(username__icontains=word)
+            search_list |= CustomUser.objects.filter(email=word)
+            search_list |= CustomUser.objects.filter(mobile_number=word)
+            # search_list = list(chain(search_list))
+            return render(request, 'social_network/test.html', {'search_list': search_list})
 
 
 class UserFormView(View):
