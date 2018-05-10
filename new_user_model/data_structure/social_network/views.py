@@ -59,7 +59,7 @@ class Home(View):
             post = Mypost.objects.get(pk=request.POST['post_id'])
             post.likes.add(request.user)
             post.save()
-            return redirect('/')
+            return redirect('/#'+str(post.pk))
 
         elif 'search' in request.POST:
             word = request.POST['search']
