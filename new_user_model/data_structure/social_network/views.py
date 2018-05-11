@@ -8,6 +8,9 @@ from .forms import CustomUserCreationForm
 from itertools import chain
 from django.db.models import Q
 from django.contrib.postgres.search import SearchVector
+import networkx as nx
+import matplotlib.pyplot as plt
+
 
 
 def index(request):
@@ -28,6 +31,19 @@ def add_friend(request, username):
     user.friends.add(new_friend)
     user.save()
     return render(request, 'social_network/friends.html', {'friends': user.friends.all()})
+
+
+def graph(request):
+    nodes = CustomUser.objects.all()
+    G = nx.DiGraph()
+    G.add_nodes_from(nodes)
+    for user in nodes:
+        for friend in user.friends.all():
+            G.add_edge(user, friend)
+    nx.draw(G, with_labels=True)
+    plt.draw()
+
+    return render(request, plt.show(), {})
 
 
 class Profile(View):
