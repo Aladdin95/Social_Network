@@ -30,9 +30,26 @@ def add_friend(request, username):
     return render(request, 'social_network/friends.html', {'friends': user.friends.all()})
 
 
-def profile(request, username):
-    user = CustomUser.objects.get(username=username)
-    return render(request, 'social_network/profile.html', {'user': user})
+class Profile(View):
+    profile = 'social_network/profile.html'
+    myprofile = 'social_network/myprofile.html'
+
+    def get(self, request, username):
+        user = CustomUser.objects.get(username=username)
+        if request.user == user:
+            return render(request, self.myprofile, {'user': user})
+        return render(request, self.profile, {'user': user})
+
+    def post(self, request, username):
+        user = CustomUser.objects.get(username=username)
+        if 'addfriend' in request.POST:
+            user.friends.add(request.user)
+
+        elif 'unfriend' in request.POST:
+            user.friends.remove(request.user)
+
+        user.save()
+        return redirect(request.path_info)
 
 
 class Home(View):

@@ -53,6 +53,26 @@
         text-decoration:underline;
        /* border-bottom:1px solid #444; */
     }
+
+    .author
+    {
+        background:none!important;
+        color:blue;
+        border:none;
+        padding:0!important;
+        font: inherit;
+        font-size: 20px;
+        /*font-weight: bolder;*/
+        /*border is optional*/
+        cursor: pointer;
+    }
+    .author:hover
+    {
+        text-decoration:underline;
+       /* border-bottom:1px solid #444; */
+    }
+
+
        body {
         margin:40px 100px;
         }
@@ -156,7 +176,7 @@
   <div class="card">
 <div class="card-body">
     <a name="{{post.pk}}"></a>
-  <h4 class="card-title">{{post.user}}</h4>
+  <a href="{%url 'profile' post.user.username %}" class="author">{{post.user}}</a>
   <p class="card-text">{{post.postbody}}</p>
     <p class="card-text">{{post.updated}}</p>
 

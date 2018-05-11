@@ -72,7 +72,7 @@
     <ul class="nav navbar-nav">
       <li ><a href="/"> Home</a></li>
       <li><a href="/{{request.user.username}}">My Profile</a></li>
-      <li><a href="/{{user.username}}/friends/">Friends</a></li>
+      <li><a href="/{{request.user.username}}/friends/">Friends</a></li>
       <!-- <li><a href="#">Shop</a></li> -->
       <!-- <li><a href="#"><span class="glyphicon glyphicon-align-justify"></span></a></li> -->
 
@@ -100,21 +100,7 @@
 
 <div class="container">
     <div class="card">
-      <h2 class="card-title"><b>{{user}}</b></h2>
-
-        {%if request.user in user.friends.all%}
-            <form method="post" action="">
-            {% csrf_token %}
-            <button type="submit" class="btn" name="unfriend" value={{user.username}}>Unfriend</button>
-            </form>
-        {%else%}
-            <form method="post" action="">
-            {% csrf_token %}
-            <button type="submit" class="btn" name="addfriend" value={{user.username}}>Add Friend</button>
-            </form>
-        {%endif%}
-
-
+      <h2 class="card-title"><b>{{user}}</b></h4>
         <br>
         <ul>
          <li class="card-text" id='big_font'><b>E-mail: </b><span id='small_font'>{{user.email}}</span></li>

@@ -13,5 +13,5 @@ urlpatterns = [
     url(r'^users', views.index, name='index'),
     # url(r'^login', views.login, name='index'),
     url(r'^$', views.Home.as_view(), name='home'),
-    url(r'^(?P<username>[\w.@+-]+)/$', views.profile, name='profile'),
+    url(r'^(?P<username>[\w.@+-]+)/$', views.Profile.as_view(), name='profile'),
 ]
