@@ -135,9 +135,7 @@
           {% endif %}
 
 
-      <form class="navbar-form navbar-right" method="post" action="">
-        {% csrf_token %}
-
+      <form class="navbar-form navbar-right" method="get" action="">
         <div class="form-group" style="background-color:#333;">
         <div class="input-group" >
         <div class="input-group-addon" style="background-color:black;border-color:black;"><span class="glyphicon glyphicon-search"></span></div>
@@ -145,8 +143,6 @@
 
         </div>
         </div>
-
-
       </form>
             </ul>
 

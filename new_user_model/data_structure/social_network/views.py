@@ -6,7 +6,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from .models import CustomUser, Mypost
 from .forms import CustomUserCreationForm
 from itertools import chain
-from django.db.models import CharField
+from django.db.models import Q
 from django.contrib.postgres.search import SearchVector
 
 
@@ -54,8 +54,22 @@ class Profile(View):
 
 class Home(View):
     template = 'social_network/myhome.html'
+    search_template = 'social_network/test.html'
 
     def get(self, request):
+        search = request.GET.get('search')
+        if search:
+            search_list = CustomUser.objects.none()
+            for word in search.split():
+                search_list |= CustomUser.objects.filter(
+                    Q(first_name__icontains=word) |
+                    Q(last_name__icontains=word) |
+                    Q(username__icontains=word) |
+                    Q(email=word) |
+                    Q(mobile_number=word)
+                )
+            return render(request, self.search_template, {'search_list': search_list})
+
         if request.user.is_authenticated:
             posts = request.user.mypost_set.all()
             for user in request.user.friends.all():
@@ -72,33 +86,22 @@ class Home(View):
             new_post.save()
             return redirect(request.path_info)
 
-        elif 'like' in request.POST:
+        if 'like' in request.POST:
             post = Mypost.objects.get(pk=request.POST['post_id'])
             post.likes.add(request.user)
             post.save()
             return redirect('/#'+str(post.pk))
 
-        elif 'unlike' in request.POST:
+        if 'unlike' in request.POST:
             post = Mypost.objects.get(pk=request.POST['post_id'])
             post.likes.remove(request.user)
             post.save()
             return redirect('/#' + str(post.pk))
 
-        elif 'LikesCount' in request.POST:
+        if 'LikesCount' in request.POST:
             post = Mypost.objects.get(pk=request.POST['post_id'])
             users = post.likes.all()
             return render(request, 'social_network/likes_list.html', {'users': users})
-
-        elif 'search' in request.POST:
-            search = request.POST['search']
-            search_list = CustomUser.objects.none()
-            for word in search.split():
-                search_list |= CustomUser.objects.filter(first_name__icontains=word)
-                search_list |= CustomUser.objects.filter(last_name__icontains=word)
-                search_list |= CustomUser.objects.filter(username__icontains=word)
-                search_list |= CustomUser.objects.filter(email=word)
-                search_list |= CustomUser.objects.filter(mobile_number=word)
-            return render(request, 'social_network/test.html', {'search_list': search_list})
 
 
 class UserFormView(View):
