@@ -1,1 +1,5 @@
-{{fig}}
+{{paths}}
+
+for path in paths:
+for x in range(0, len(list(path))-1):
+G.edges[path[x], path[x+1]]['color'] = 'red'

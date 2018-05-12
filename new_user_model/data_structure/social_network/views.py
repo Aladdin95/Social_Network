@@ -43,10 +43,11 @@ def graph(request):
         for friend in user.friends.all():
             G.add_edge(user.username, friend.username, color='blue')
     #nx.draw(G, with_labels=True)
-
-    for path in nx.all_shortest_paths(G, 'abbas', 'samy'):
+    paths = nx.all_shortest_paths(G, 'abbas', 'samy')
+    for path in paths:
         for x in range(0, len(list(path))-1):
             G.edges[path[x], path[x+1]]['color'] = 'red'
+            G.edges[path[x+1], path[x]]['color'] = 'red'
 
     edges = G.edges()
     colors = [G[u][v]['color'] for u, v in edges]
@@ -62,7 +63,7 @@ def graph(request):
     plt.draw()
     #plt.scatter(0.01,0.01)
     plt.show()
-    return redirect('home')
+    return render(request, 'social_network/graph.html', {'paths': paths})
 
 
 class Profile(View):
