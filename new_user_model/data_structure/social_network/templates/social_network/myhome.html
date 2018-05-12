@@ -105,6 +105,15 @@
         	padding: 10px 0 0;
         	text-align: center;
         }
+        #from_to{
+        background:#222;
+        color:#9d9d9d;
+        border-color:#222;
+        border:none;
+        margin-top:13px;
+        }
+
+
     </style>
 
 </head>
@@ -119,6 +128,29 @@
       <li><a href="/{{user.username}}/">Profile</a></li>
       <li><a href="/{{user.username}}/friends/">Friends</a></li>
         <li><a href="{%url 'graph'%}">GRAPH</a></li>
+        <li><button  id="from_to">Shortest Path</button></li>
+        <li style="margin-top:8px;">
+        <form id="msg" class="navbar-form" method="get" action="" style="display:none;">
+            <div class="form-group" style="background-color:#333;margin-top=11px;">
+        <div class="input-group">
+    <span class="input-group-addon" style="background-color:black;border-color:black;">From</span>
+    <input  type="text" class="form-control" name="msg" placeholder="User Name"  style="background-color:black;border-color:black;">
+  </div>
+            </div>
+            </form>
+            </li>
+        <li style="margin-top:8px;">
+        <form id="msg1" class="navbar-form" method="get" action="" style="display:none;">
+            <div class="form-group" style="background-color:#333;margin-top=11px;">
+        <div class="input-group">
+    <span class="input-group-addon" style="background-color:black;border-color:black;">To</span>
+    <input  type="text" class="form-control" name="msg" placeholder="User Name"  style="background-color:black;border-color:black;">
+  </div>
+            </div>
+            </form>
+</li>
+        <li id="msg2" style="display:none;"><a href="{%url 'shortestpath'%}" style="color:#9d9d9d;">Draw</a></li>
+
       <!-- <li><a href="#">Shop</a></li> -->
       <!-- <li><a href="#"><span class="glyphicon glyphicon-align-justify"></span></a></li> -->
 
@@ -262,5 +294,39 @@
 
 </div> -->
 </div>
+<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+ <script>
+ $(document).ready(function(){
+ $("#from_to").click(function(){
+ var x = document.getElementById('msg');
+    if (x.style.display == 'none') {
+        x.style.display = 'inline';
+
+    } else {
+        x.style.display = 'none';;
+    }
+    var y= document.getElementById('msg1');
+    if (y.style.display == "none") {
+        y.style.display = "inline";
+
+    } else {
+        y.style.display = "none";;
+    }
+    var z = document.getElementById('msg2');
+    if (z.style.display == "none") {
+        z.style.display = "inline";
+    } else {
+        z.style.display = "none";
+    }
+
+
+
+    });
+    });
+
+</script>
 </body>
 </html>

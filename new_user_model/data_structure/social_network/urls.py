@@ -7,6 +7,7 @@ urlpatterns = [
     #/users/
     # url(r'(?P<username>[\w.@+-]+)/add_post/$', views.add_post, name='add_post'),
     url(r'graph/$', views.graph, name='graph'),
+    url(r'shortestpath/$', views.shortestpath, name='shortestpath'),
     url(r'reg/$', views.UserFormView.as_view(), name='register'),
     path('', include('django.contrib.auth.urls')),
     url(r'^(?P<username>[\w.@+-]+)/friends/$', views.detail, name='detail'),

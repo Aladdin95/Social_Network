@@ -41,7 +41,30 @@ def graph(request):
         G.add_node(user.username)
     for user in CustomUser.objects.all():
         for friend in user.friends.all():
-            G.add_edge(user.username, friend.username, color='blue')
+            G.add_edge(user.username, friend.username)
+    # nx.draw(G, with_labels=True)
+
+
+    nx.draw_shell(G, with_labels=True, node_color='green', arrows=False, font_size=12,
+                  node_size=500, edge_color='grey')
+
+    # nx.draw_networkx_labels(G, pos)
+    # nx.draw_networkx_edges(G, pos, edgelist=red_edges, edge_color='r', arrows=True)
+    # nx.draw_networkx_edges(G, pos, edgelist=black_edges, arrows=False)
+    # plt.scatter(10, 10, alpha=10)
+    plt.draw()
+    # plt.scatter(0.01,0.01)
+    plt.show()
+    return redirect('home')
+
+def shortestpath(request):
+    G = nx.DiGraph()
+
+    for user in CustomUser.objects.all():
+        G.add_node(user.username)
+    for user in CustomUser.objects.all():
+        for friend in user.friends.all():
+            G.add_edge(user.username, friend.username, color='grey')
     #nx.draw(G, with_labels=True)
     paths = nx.all_shortest_paths(G, 'abbas', 'samy')
     for path in paths:
@@ -63,7 +86,8 @@ def graph(request):
     plt.draw()
     #plt.scatter(0.01,0.01)
     plt.show()
-    return render(request, 'social_network/graph.html', {'paths': paths})
+    return redirect('home')
+    # return render(request, 'social_network/graph.html', {'paths': paths})
 
 
 class Profile(View):
