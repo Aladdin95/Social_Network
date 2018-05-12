@@ -10,6 +10,7 @@ from django.db.models import Q
 from django.contrib.postgres.search import SearchVector
 import networkx as nx
 import matplotlib.pyplot as plt
+import numpy as np
 
 
 
@@ -34,16 +35,27 @@ def add_friend(request, username):
 
 
 def graph(request):
-    nodes = CustomUser.objects.all()
     G = nx.DiGraph()
-    G.add_nodes_from(nodes)
-    for user in nodes:
-        for friend in user.friends.all():
-            G.add_edge(user, friend)
-    nx.draw(G, with_labels=True)
-    plt.draw()
 
-    return render(request, plt.show(), {})
+    for user in CustomUser.objects.all():
+        G.add_node(user.username)
+    for user in CustomUser.objects.all():
+        for friend in user.friends.all():
+            G.add_edge(user.username, friend.username)
+    #nx.draw(G, with_labels=True)
+
+
+    nx.draw_shell(G, with_labels=True, node_color='green', arrows=False , font_size=12,
+                     node_size=500, edge_color='grey')
+
+    #nx.draw_networkx_labels(G, pos)
+    #nx.draw_networkx_edges(G, pos, edgelist=red_edges, edge_color='r', arrows=True)
+    #nx.draw_networkx_edges(G, pos, edgelist=black_edges, arrows=False)
+    #plt.scatter(10, 10, alpha=10)
+    plt.draw()
+    #plt.scatter(0.01,0.01)
+    plt.show()
+    return redirect('home')
 
 
 class Profile(View):
