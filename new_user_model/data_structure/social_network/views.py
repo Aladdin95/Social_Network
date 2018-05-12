@@ -41,12 +41,19 @@ def graph(request):
         G.add_node(user.username)
     for user in CustomUser.objects.all():
         for friend in user.friends.all():
-            G.add_edge(user.username, friend.username)
+            G.add_edge(user.username, friend.username, color='blue')
     #nx.draw(G, with_labels=True)
 
+    for path in nx.all_shortest_paths(G, 'abbas', 'samy'):
+        for x in range(0, len(list(path))-1):
+            G.edges[path[x], path[x+1]]['color'] = 'red'
 
-    nx.draw_shell(G, with_labels=True, node_color='green', arrows=False , font_size=12,
-                     node_size=500, edge_color='grey')
+    edges = G.edges()
+    colors = [G[u][v]['color'] for u, v in edges]
+
+    nx.draw_shell(G, with_labels=True, node_color='green', arrows=False, font_size=12,
+                     node_size=500, edge_color=colors)
+
 
     #nx.draw_networkx_labels(G, pos)
     #nx.draw_networkx_edges(G, pos, edgelist=red_edges, edge_color='r', arrows=True)
