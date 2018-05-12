@@ -78,23 +78,23 @@
       <!-- <li><a href="#"><span class="glyphicon glyphicon-align-justify"></span></a></li> -->
 
     </ul>
-      <ul class="nav navbar-nav navbar-right">
-             <li><a href="/{{user.username}}">{{user}}</a></li>
+    <ul class="nav navbar-nav navbar-right">
+        <li><a href="/{{user.username}}">{{user}}</a></li>
         <li><a href="/logout/">Log Out</a></li>
 
 
-      <form class="navbar-form navbar-right">
+        <form class="navbar-form navbar-right" method="get" action="/">
+          <div class="form-group" style="background-color:#333;">
+            <div class="input-group" >
+                <div class="input-group-addon" style="background-color:black;border-color:black;">
+                    <span class="glyphicon glyphicon-search"></span>
+                </div>
+                 <input type="text" name="search" class="form-control" placeholder="Start Searching" style="background-color:black;border-color:black;">
+            </div>
+          </div>
+        </form>
 
-      <div class="form-group" style="background-color:#333;">
-<div class="input-group" >
-    <div class="input-group-addon" style="background-color:black;border-color:black;"><span class="glyphicon glyphicon-search"></span></div>
-        <input type="text" class="form-control" placeholder="Start Searching" style="background-color:black;border-color:black;">
-      </div>
-      </div>
-
-
-      </form>
-            </ul>
+    </ul>
 
   </div>
 </nav>
@@ -108,7 +108,7 @@
 
 <ul class="card-text">
     {% for friend in friends%}
-        <li><a href="/users/{{ friend.pk }}/">{{friend}}</a></li>
+        <li><a href="/{{ friend.username }}/">{{friend}}</a></li>
     {% endfor %}
 </ul>
 </div>
