@@ -66,7 +66,7 @@ def shortestpath(request):
         G.add_node(user.username)
     for user in CustomUser.objects.all():
         for friend in user.friends.all():
-            G.add_edge(user.username, friend.username, color='grey')
+            G.add_edge(user.username, friend.username, color='black')
 
     paths_colors=['blue','violet','pink','purple']
     paths = nx.all_shortest_paths(G, request.POST['msgfrom'], request.POST['msgto'])
@@ -83,29 +83,55 @@ def shortestpath(request):
 
     nx.draw_shell(G, with_labels=True, node_color='#80bfff', arrows=False, font_size=12,
                      node_size=500, edge_color=colors)
-
-    temp = list(nx.common_neighbors(G,'samy','abbas'))
-
+    # temp = list(nx.common_neighbors(G, 'samy', 'abbas'))
     #nx.draw_networkx_labels(G, pos)
     #nx.draw_networkx_edges(G, pos, edgelist=red_edges, edge_color='r', arrows=True)
     #nx.draw_networkx_edges(G, pos, edgelist=black_edges, arrows=False)
     #plt.scatter(10, 10, alpha=10)
-    #plt.draw()
+    plt.draw()
     #plt.scatter(0.01,0.01)
-    #plt.show()
-    # return redirect('home')
-    return render(request, 'social_network/graph.html', {'paths': len(temp)})
+    plt.show()
+    return redirect('home')
+    # return render(request, 'social_network/graph.html', {'paths': len(temp)})
+
+
+
+
 
 
 class Profile(View):
     profile = 'social_network/profile.html'
     myprofile = 'social_network/myprofile.html'
 
+
+
+
+
+
+
+
+
+
     def get(self, request, username):
+
+        G = nx.Graph()
+
+        for user in CustomUser.objects.all():
+            G.add_node(user.username)
+        for user in CustomUser.objects.all():
+            for friend in user.friends.all():
+                G.add_edge(user.username, friend.username)
+
+        myuser = request.user
+        touser = user
+
+
         user = CustomUser.objects.get(username=username)
+
+        temp = list(nx.common_neighbors(G,user.username, request.user.username))
         if request.user == user:
             return render(request, self.myprofile, {'user': user})
-        return render(request, self.profile, {'user': user})
+        return render(request, self.profile, {'user': user, 'count': len(temp), 'paths': temp})
 
     def post(self, request, username):
         user = CustomUser.objects.get(username=username)
@@ -121,13 +147,15 @@ class Profile(View):
 
 class Home(View):
     template = 'social_network/myhome.html'
- #   signin_template='social_network/Registration.html'
+    signin_template='social_network/Registration.html'
     search_template = 'social_network/test.html'
+
 
     def get(self, request):
         search = request.GET.get('search')
         if search:
             search_list = CustomUser.objects.none()
+
             for word in search.split():
                 search_list |= CustomUser.objects.filter(
                     Q(first_name__icontains=word) |
@@ -136,7 +164,9 @@ class Home(View):
                     Q(email=word) |
                     Q(mobile_number=word)
                 )
-            return render(request, self.search_template, {'search_list': search_list})
+
+
+            return render(request, self.search_template, {'search_list': search_list })
 
         if request.user.is_authenticated:
             posts = request.user.mypost_set.all()

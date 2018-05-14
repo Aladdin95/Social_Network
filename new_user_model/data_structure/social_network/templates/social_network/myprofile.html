@@ -52,13 +52,20 @@
         	padding: 10px 0 0;
         	text-align: center;
         }
-        #big_font{
+        li.big_font{
           font-size: 16;
 
         }
-        #small_font{
+        .small_font{
           font-size: 14;
 
+        }
+        #from_to{
+        background:#222;
+        color:#9d9d9d;
+        border-color:#222;
+        border:none;
+        margin-top:13px;
         }
     </style>
 
@@ -73,8 +80,31 @@
       <li ><a href="/"> Home</a></li>
       <li><a href="/{{request.user.username}}">My Profile</a></li>
       <li><a href="/{{request.user.username}}/friends/">Friends</a></li>
-      <!-- <li><a href="#">Shop</a></li> -->
-      <!-- <li><a href="#"><span class="glyphicon glyphicon-align-justify"></span></a></li> -->
+      <li><a href="{%url 'graph'%}">GRAPH</a></li>
+
+        <li><button  id="from_to">Shortest Path</button></li>
+
+        <li style="margin-top:6px;">
+            <form id="msg" class="navbar-form" method="post" action="{%url 'shortestpath'%}" style="display:none;">
+                {% csrf_token %}
+                <div style="margin:8px;" class="form-group" style="background-color:#333;margin-top=8px;">
+                <div class="input-group">
+                <span class="input-group-addon" style="background-color:black;border-color:black;">From</span>
+                <input  type="text" class="form-control" name="msgfrom" placeholder="User Name"  style="background-color:black;border-color:black;">
+                </div>
+                </div>
+
+
+                <div style="margin:8px;" class="form-group" style="background-color:#333;margin-top=11px;">
+                <div class="input-group">
+                <span class="input-group-addon" style="background-color:black;border-color:black;">To</span>
+                <input  type="text" class="form-control" name="msgto" placeholder="User Name"  style="background-color:black;border-color:black;">
+                </div>
+                </div>
+                <button type="submit" style="margin:8px;" href="{%url 'shortestpath'%}" style="color:#9d9d9d;">Draw</button>
+            </form>
+        </li>
+
 
     </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -99,12 +129,12 @@
 
 <div class="container">
     <div class="card">
-      <h2 class="card-title"><b>{{user}}</b></h4>
+      <h2 class="card-title"><b>{{user}}</b></h2>
         <br>
         <ul>
-         <li class="card-text" id='big_font'><b>E-mail: </b><span id='small_font'>{{user.email}}</span></li>
-         <li class="card-text" id='big_font'><b>Mobile Number: </b><span id='small_font'>{{user.mobile_number}}</span></li>
-            <li class="card-text" id='big_font'><b>Birth-Date: </b><span id='small_font'>{{user.birth_date}}</span></li>
+         <li class="card-text" class='big_font'><b>E-mail: </b><span class='small_font'>{{user.email}}</span></li>
+         <li class="card-text" class='big_font'><b>Mobile Number: </b><span class='small_font'>{{user.mobile_number}}</span></li>
+            <li class="card-text" class='big_font'><b>Birth-Date: </b><span class='small_font'>{{user.birth_date}}</span></li>
 
 
 </ul>
@@ -149,5 +179,38 @@
 
 </div> -->
 </div>
-</body>
+<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+ <script>
+ $(document).ready(function(){
+ $("#from_to").click(function(){
+ var x = document.getElementById('msg');
+    if (x.style.display == 'none') {
+        x.style.display = 'inline';
+
+    } else {
+        x.style.display = 'none';;
+    }
+    var y= document.getElementById('msg1');
+    if (y.style.display == "none") {
+        y.style.display = "inline";
+
+    } else {
+        y.style.display = "none";;
+    }
+    var z = document.getElementById('msg2');
+    if (z.style.display == "none") {
+        z.style.display = "inline";
+    } else {
+        z.style.display = "none";
+    }
+
+
+
+    });
+    });
+
+</script></body>
 </html>

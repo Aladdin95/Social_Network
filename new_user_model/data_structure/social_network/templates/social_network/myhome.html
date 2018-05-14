@@ -134,10 +134,10 @@
 
         <li><button  id="from_to">Shortest Path</button></li>
 
-        <li style="margin-top:8px;">
+        <li >
             <form id="msg" class="navbar-form" method="post" action="{%url 'shortestpath'%}" style="display:none;">
                 {% csrf_token %}
-                <div style="margin:8px;" class="form-group" style="background-color:#333;margin-top=11px;">
+                <div style="margin:8px;" class="form-group" style="background-color:#333;margin-top=8px;">
                 <div class="input-group">
                 <span class="input-group-addon" style="background-color:black;border-color:black;">From</span>
                 <input  type="text" class="form-control" name="msgfrom" placeholder="User Name"  style="background-color:black;border-color:black;">
@@ -256,17 +256,17 @@
 <div class="row">
   <div class="card">
 <div class="card-body">
-  <h4 class="card-title">HELLO</h4>
-  <p class="card-text">its free and always will be</p>
-  <a href="#" class="card-link">Like</a>
-  <a href="#" class="card-link">Comment</a>
+    {% if not user.is_authenticated %}
+  <h2 class="card-title" style="text-align: center;">HELLO</h2>
+  <h4 class="card-text" style="text-align: center;">Welcome to our Website</h4>
 </div>
 </div>
 </div>
+    {%endif%}
 <div class="container-fluid" id="footer">
    <div>
      <p>
-       &copy; copyright 2023 | all rights reserved.
+       &copy; copyright 2018 | all rights reserved.
      </p>
    </div>
  </div>
