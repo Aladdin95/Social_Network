@@ -11,6 +11,7 @@ from django.contrib.postgres.search import SearchVector
 import networkx as nx
 import matplotlib.pyplot as plt
 import numpy as np
+#import common_neighbors
 
 
 
@@ -59,6 +60,7 @@ def graph(request):
 
 def shortestpath(request):
     G = nx.Graph()
+    #all_simple_paths(G, source, target, cutoff=3):
 
     for user in CustomUser.objects.all():
         G.add_node(user.username)
@@ -82,16 +84,17 @@ def shortestpath(request):
     nx.draw_shell(G, with_labels=True, node_color='#80bfff', arrows=False, font_size=12,
                      node_size=500, edge_color=colors)
 
+    temp = list(nx.common_neighbors(G,'samy','abbas'))
 
     #nx.draw_networkx_labels(G, pos)
     #nx.draw_networkx_edges(G, pos, edgelist=red_edges, edge_color='r', arrows=True)
     #nx.draw_networkx_edges(G, pos, edgelist=black_edges, arrows=False)
     #plt.scatter(10, 10, alpha=10)
-    plt.draw()
+    #plt.draw()
     #plt.scatter(0.01,0.01)
-    plt.show()
-    return redirect('home')
-    # return render(request, 'social_network/graph.html', {'paths': paths})
+    #plt.show()
+    # return redirect('home')
+    return render(request, 'social_network/graph.html', {'paths': len(temp)})
 
 
 class Profile(View):
@@ -118,6 +121,7 @@ class Profile(View):
 
 class Home(View):
     template = 'social_network/myhome.html'
+ #   signin_template='social_network/Registration.html'
     search_template = 'social_network/test.html'
 
     def get(self, request):
