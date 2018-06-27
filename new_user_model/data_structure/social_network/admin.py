@@ -13,3 +13,4 @@ class CustomUserAdmin(UserAdmin):
 
 
 admin.site.register(CustomUser)
+admin.site.register(Mypost)
