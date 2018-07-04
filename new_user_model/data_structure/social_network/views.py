@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate, login as auth_login, logout as aut
 from django.views import generic
 from django.views.generic import View
 from django.http import HttpResponse, HttpResponseRedirect
-from .models import CustomUser, Mypost
+from .models import CustomUser, Mypost, Group
 from .forms import CustomUserCreationForm
 from itertools import chain
 from django.db.models import Q
@@ -11,6 +11,7 @@ from django.contrib.postgres.search import SearchVector
 import networkx as nx
 import matplotlib.pyplot as plt
 import numpy as np
+
 #import common_neighbors
 
 
@@ -26,6 +27,10 @@ def detail(request, username):
     friends = user.friends.all()
     return render(request, 'social_network/friends.html', {'friends': friends})
 
+def groupsview(request, username):
+    user = CustomUser.objects.get(username=username)
+    groups = user.my_groups.all()
+    return render(request, 'social_network/groups.html', {'groups': groups})
 
 def add_friend(request, username):
     user = CustomUser.objects.get(username=username)
@@ -33,6 +38,14 @@ def add_friend(request, username):
     user.friends.add(new_friend)
     user.save()
     return render(request, 'social_network/friends.html', {'friends': user.friends.all()})
+
+def join_group(request, username):
+    user = CustomUser.objects.get(username=username)
+    group = Group.objects.get(name=request.POST.get('group_name'))
+    group.users.add(user)
+    group.save()
+    groups = user.my_groups.all()
+    return render(request, 'social_network/groups.html', {'groups': groups})
 
 
 def graph(request):
@@ -103,15 +116,6 @@ class Profile(View):
     profile = 'social_network/profile.html'
     myprofile = 'social_network/myprofile.html'
 
-
-
-
-
-
-
-
-
-
     def get(self, request, username):
 
         G = nx.Graph()
@@ -145,11 +149,51 @@ class Profile(View):
         return redirect(request.path_info)
 
 
+class groupHome(View):
+    template = 'social_network/group_home.html'
+
+    def get(self, request, group_id):
+        if request.user.is_authenticated:
+            group = Group.objects.get(pk=group_id)
+            posts = group.mypost_set.all()
+            posts = sorted(posts, key=lambda instance: instance.created, reverse=True)
+            return render(request, self.template, {'posts':posts})
+        return render(request, self.template, {})
+
+
+    def post(self, request, group_id):
+        if 'postbody' in request.POST:
+            new_post = Mypost()
+            new_post.postbody = request.POST['postbody']
+            new_post.user = request.user
+            new_post.group = Group.objects.get(pk=group_id)
+            new_post.save()
+            return redirect(request.path_info)
+
+        if 'like' in request.POST:
+            post = Mypost.objects.get(pk=request.POST['post_id'])
+            post.likes.add(request.user)
+            post.save()
+            return redirect('/groups/'+str(group_id)+'/#'+str(post.pk))
+
+        if 'unlike' in request.POST:
+            post = Mypost.objects.get(pk=request.POST['post_id'])
+            post.likes.remove(request.user)
+            post.save()
+            return redirect('/groups/'+str(group_id)+'/#'+str(post.pk))
+
+        if 'LikesCount' in request.POST:
+            post = Mypost.objects.get(pk=request.POST['post_id'])
+            users = post.likes.all()
+            return render(request, 'social_network/likes_list.html', {'users': users})
+
+
+
+
 class Home(View):
     template = 'social_network/myhome.html'
     signin_template='social_network/Registration.html'
     search_template = 'social_network/test.html'
-
 
     def get(self, request):
         search = request.GET.get('search')
@@ -165,13 +209,12 @@ class Home(View):
                     Q(mobile_number=word)
                 )
 
-
             return render(request, self.search_template, {'search_list': search_list })
 
         if request.user.is_authenticated:
-            posts = request.user.mypost_set.all()
+            posts = request.user.mypost_set.filter(group=None)
             for user in request.user.friends.all():
-                posts |= user.mypost_set.all()
+                posts |= user.mypost_set.filter(group=None)
             posts = sorted(posts, key=lambda instance: instance.created, reverse=True)
             return render(request, self.template, {'posts': posts})
         return render(request, self.template, {})
