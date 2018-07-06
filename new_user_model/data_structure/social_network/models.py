@@ -32,3 +32,6 @@ class Mypost(models.Model):
     updated = models.DateTimeField(auto_now=True)
     likes = models.ManyToManyField(CustomUser, related_name="my_likes")
     group = models.ForeignKey(Group, on_delete=models.CASCADE, default=None, blank=True, null=True)
+
+    def __str__(self):
+        return 'post ID (' + str(self.pk) +')'

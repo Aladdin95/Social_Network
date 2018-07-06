@@ -191,6 +191,25 @@
   </div>
 </nav>
 
+<br>
+<h2 class="card-title"><b>{{group}}</b></h2>
+
+<br>
+        <form method="post" action="{%url 'groupan'%}">
+            {% csrf_token %}
+            <input type="hidden" name="this_group" value="{{ group.pk }}">
+            <button type="submit" class="btn" name="addfriend" value={{user.username}}>Users & Likes analysis</button>
+        </form>
+<br>
+        <form method="post" action="{%url 'postan'%}">
+            {% csrf_token %}
+            <input type="hidden" name="this_group" value="{{ group.pk }}">
+            <button type="submit" class="btn" name="addfriend" value={{user.username}}>Posts & Likes analysis</button>
+        </form>
+
+<br>
+
+<br>
 <div class="container">
   <div class="row">
     <div class="card">
@@ -215,9 +234,13 @@
   <div class="card">
 <div class="card-body">
     <a name="{{post.pk}}"></a>
+              <p class="card-text"><strong>Post ID : {{post.pk}}</strong></p>
+
   <a href="{%url 'profile' post.user.username %}" class="author">{{post.user}}</a>
+
   <p class="card-text">{{post.postbody}}</p>
     <p class="card-text">{{post.updated}}</p>
+
 
     <div class="form-group mx-sm-3 mb-2">
 

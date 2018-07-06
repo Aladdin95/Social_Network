@@ -126,10 +126,21 @@
   <button type="submit" class="btn btn-primary mb-2">Join</button>
 </form>
 
+<br> <br>
+
+<form method="post" action="{% url 'create_group' user.username %}" class="form-inline">
+     {% csrf_token %}
+  <div class="form-group mx-sm-3 mb-2">
+    <label class="sr-only">Password</label>
+    <input type="text" class="form-control" name="group_name" placeholder="Enter Group Name">
+  </div>
+  <button type="submit" class="btn btn-primary mb-2">Create Group</button>
+</form>
+
+
 </div>
 <br>
 <br>
-<a class="btn btn-primary mb-2" href="/creategroup/">Create Group</a>
 <div class="container-fluid" id="footer">
    <div>
      <p>

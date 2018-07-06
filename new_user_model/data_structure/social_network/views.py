@@ -10,7 +10,14 @@ from django.db.models import Q
 from django.contrib.postgres.search import SearchVector
 import networkx as nx
 import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt; plt.rcdefaults()
 import numpy as np
+from plotly.offline.offline import _plot_html
+
+
+import plotly
+import plotly.graph_objs
+
 
 #import common_neighbors
 
@@ -46,6 +53,62 @@ def join_group(request, username):
     group.save()
     groups = user.my_groups.all()
     return render(request, 'social_network/groups.html', {'groups': groups})
+
+def create_group (request, username):
+    group = Group()
+    group.name = request.POST.get('group_name')
+    group.save()
+    group.users.add(request.user)
+    group.save()
+    groups = request.user.my_groups.all()
+    return render(request, 'social_network/groups.html', {'groups': groups})
+
+
+def groupan(request):
+    group = Group.objects.get(pk=request.POST['this_group'])
+    objects = list(group.users.all())
+    # objects = ('Python', 'C++', 'Java', 'Perl', 'Scala', 'Lisp')
+
+    y_pos = np.arange(len(objects))
+
+    performance = []
+
+    for user in group.users.all():
+        performance.append(len(user.my_likes.filter(group=group)))
+
+    plt.bar(y_pos, performance, align='center', alpha=0.5)
+    plt.xticks(y_pos, objects)
+    plt.ylabel('Number of likes')
+    plt.title('User and Likes')
+
+    plt.show()
+    return redirect ('grouphome', group_id = group.pk)
+
+
+
+
+def postan(request):
+    group = Group.objects.get(pk=request.POST['this_group'])
+    objects = list(Mypost.objects.filter(group=group))
+    # objects = ('Python', 'C++', 'Java', 'Perl', 'Scala', 'Lisp')
+
+    y_pos = np.arange(len(objects))
+
+    performance = []
+
+
+    for post in Mypost.objects.filter(group=group):
+        performance.append(len(post.likes.all()))
+
+    plt.bar(y_pos, performance, align='center', alpha=0.5)
+    plt.xticks(y_pos, objects)
+    plt.ylabel('Number of likes')
+    plt.title('Posts and Likes')
+
+    plt.show()
+    return redirect ('grouphome', group_id = group.pk)
+
+
 
 
 def graph(request):
@@ -157,7 +220,7 @@ class groupHome(View):
             group = Group.objects.get(pk=group_id)
             posts = group.mypost_set.all()
             posts = sorted(posts, key=lambda instance: instance.created, reverse=True)
-            return render(request, self.template, {'posts':posts})
+            return render(request, self.template, {'posts':posts, 'group':group})
         return render(request, self.template, {})
 
 
