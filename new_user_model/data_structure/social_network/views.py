@@ -12,11 +12,6 @@ import networkx as nx
 import matplotlib.pyplot as plt
 import matplotlib.pyplot as plt; plt.rcdefaults()
 import numpy as np
-from plotly.offline.offline import _plot_html
-
-
-import plotly
-import plotly.graph_objs
 
 
 #import common_neighbors
