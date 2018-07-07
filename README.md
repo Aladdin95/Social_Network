@@ -4,7 +4,8 @@ social network web project using "django" similar to facebook "ability to create
 
 ===================================================================================
 
-# To run The project; you have first to install python, then install the following :
+# To run The project:
+you have first to install python, then install the following :
 - Django (pip install django (from cmd administrator)) 
 - networkx (pip install networkx)
 - matplotlib (pip install matplotlib)
